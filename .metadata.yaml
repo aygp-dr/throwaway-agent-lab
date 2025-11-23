@@ -1,0 +1,20 @@
+project:
+  name: Throwaway Agent Lab
+  version: 0.1.0
+  status: experimental
+  
+technologies:
+  runtime: pyodide
+  languages: [python, javascript, typescript]
+  tools: [anthropic, openai, redis]
+  
+concepts:
+  - throwaway code
+  - agentic ai
+  - sandboxed execution
+  - durable workflows
+  - virtual file systems
+  
+inspired_by:
+  - author: Armin Ronacher
+    url: https://lucumr.pocoo.org/2025/10/17/agent-throwaway-code/

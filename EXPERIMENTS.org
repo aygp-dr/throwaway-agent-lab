@@ -1,0 +1,27 @@
+* EXPERIMENT Compare durable execution approaches
+:PROPERTIES:
+:EFFORT: 8h
+:END:
+Test Temporal, Restate, and simple Redis-based caching.
+Measure complexity, performance, reliability.
+
+* EXPERIMENT Evaluate PyPI package safety
+:PROPERTIES:
+:EFFORT: 4h
+:END:
+Create whitelist of safe packages.
+Test security boundaries with dangerous operations.
+
+* EXPERIMENT Benchmark agent performance
+:PROPERTIES:
+:EFFORT: 6h
+:END:
+Compare traditional tools vs throwaway code.
+Measure success rate, execution time, resource usage.
+
+* EXPERIMENT Test VFS interception patterns
+:PROPERTIES:
+:EFFORT: 4h
+:END:
+Implement different FS architectures.
+Evaluate ease of use and security.

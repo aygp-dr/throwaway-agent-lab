@@ -1,0 +1,12 @@
+* TODO Set up Pyodide runtime in Node.js
+* TODO Implement basic code execution
+* TODO Add simple file system interception
+* TODO Create example agent loop
+* TODO Implement durable execution with Redis
+* TODO Add async-to-sync FS operations
+* TODO Create "Describe" tool for image analysis
+* TODO Build "Help" tool with RAG
+* TODO Add resource limits (CPU, memory, time)
+* TODO Implement proper error recovery
+* TODO Create monitoring and observability
+* TODO Write comprehensive tests
