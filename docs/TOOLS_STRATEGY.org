@@ -1,0 +1,32 @@
+#+TITLE: Code-as-Tools Strategy
+#+AUTHOR: Throwaway Agent Lab
+#+DATE: 2025-11-23
+
+* The Paradigm Shift
+
+In traditional agent architectures (like MCP), if we want an agent to generate a QR code, we build a ~QRCodeTool~ class, define a schema, implement the logic, and register it.
+
+In the **Throwaway Code** paradigm, we simply ensure the ~qrcode~ library is available in the sandbox. The agent "implements" the tool on-the-fly by writing a Python script.
+
+* Top 10 Candidates for "Code-as-Tools"
+
+These are common capabilities often exposed as specific MCP tools that can be replaced by standard Python libraries running in Pyodide.
+
+| Capability | Traditional Tool | Python Library | Status |
+|------------|------------------|----------------|--------|
+| **QR Code Gen** | ~generate_qr(text)~ | ~qrcode~ | 🟢 Pure Python, works easily |
+| **Data Analysis** | ~analyze_csv(file)~ | ~pandas~ | 🟢 Built-in to Pyodide |
+| **Image Proc** | ~resize_image(img)~ | ~Pillow~ | 🟢 Built-in to Pyodide |
+| **HTML Parsing** | ~extract_text(url)~ | ~beautifulsoup4~ | 🟢 Built-in to Pyodide |
+| **Synthetic Data** | ~get_mock_user()~ | ~Faker~ | 🟢 Pure Python, installable |
+| **Graph/Charts** | ~plot_data(json)~ | ~matplotlib~ | 🟢 Built-in to Pyodide |
+| **Archive Ops** | ~zip_files(list)~ | ~zipfile~ / ~tarfile~ | 🟢 Stdlib |
+| **SQL Transpile** | ~format_sql(str)~ | ~sqlglot~ | 🟢 Pure Python, installable |
+| **PDF Gen** | ~create_invoice()~ | ~fpdf2~ | 🟢 Pure Python, installable |
+| **Text Diff** | ~diff_text(a, b)~ | ~difflib~ | 🟢 Stdlib |
+
+* Implementation Guide
+
+To "add" these tools, we don't write wrapper classes. We:
+1. Whitelist the packages in our Pyodide initialization (micropip install).
+2. Provide the agent with "system prompts" or "docs" reminding it that these libraries are available.
