@@ -1,0 +1,29 @@
+#+TITLE: Experiment 005: pillow-image-processing
+#+DATE: 2025-11-23
+#+STATUS: In Progress
+
+* Goal
+Replace "Image Manipulation" tools with the standard `Pillow` (PIL) library.
+
+* Hypothesis
+Image operations (resize, crop, filter) are best expressed in code. A tool API like `resize_image(w, h)` is limited; `PIL` is infinite.
+
+* Method
+1.  Create an image programmatically (or load one).
+2.  Apply a blur filter.
+3.  Save the result.
+
+* Code
+#+BEGIN_SRC python :tangle demo.py
+from PIL import Image, ImageDraw, ImageFilter
+
+# Create a blank image
+img = Image.new('RGB', (200, 200), color = 'red')
+d = ImageDraw.Draw(img)
+d.text((20,20), "Hello World", fill=(255,255,0))
+
+# Apply filter
+blurred = img.filter(ImageFilter.GaussianBlur(5))
+
+blurred.save("/output/blurred.png")
+#+END_SRC

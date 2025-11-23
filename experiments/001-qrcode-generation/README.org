@@ -1,0 +1,37 @@
+#+TITLE: Experiment 001: qrcode-generation
+#+DATE: 2025-11-23
+#+STATUS: In Progress
+
+* Goal
+Demonstrate that the Python `qrcode` library running in Pyodide is a superior alternative to a dedicated QR Code MCP server.
+
+* Hypothesis
+Using "throwaway code" to generate QR codes is:
+1.  **Simpler**: No need to maintain a long-running server or define a rigid API schema.
+2.  **More Flexible**: The agent can customize colors, error correction, and sizing on the fly using the library's full API.
+
+* Method
+1.  Write a Python script that imports `qrcode` and generates a complex QR code (e.g., high error correction, custom colors).
+2.  Execute it in the Pyodide sandbox.
+3.  Verify the output image.
+
+* Code
+#+BEGIN_SRC python :tangle demo.py
+import qrcode
+
+# Complex generation that would require a complex API schema in MCP
+qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_H, # High error correction
+    box_size=20,
+    border=2,
+)
+qr.add_data("https://github.com/aygp-dr/throwaway-agent-lab")
+qr.make(fit=True)
+
+img = qr.make_image(fill_color="darkblue", back_color="white")
+img.save("/output/complex_qr.png")
+#+END_SRC
+
+* Results
+(To be filled after execution)

@@ -1,0 +1,29 @@
+#+TITLE: Experiment 003: faker-synthetic-data
+#+DATE: 2025-11-23
+#+STATUS: In Progress
+
+* Goal
+Replace "Synthetic Data Generator" tools with the `Faker` library.
+
+* Hypothesis
+The `Faker` library provides a vast array of providers (credit cards, addresses, profiles) that would be tedious to expose via a tool API. Direct library access gives the agent full power.
+
+* Method
+1.  Install `Faker` (via micropip).
+2.  Generate a consistent dataset with a specific seed.
+
+* Code
+#+BEGIN_SRC python :tangle demo.py
+from faker import Faker
+import json
+
+fake = Faker()
+Faker.seed(42) # Reproducible results
+
+profiles = []
+for _ in range(3):
+    profiles.append(fake.profile(fields=['username', 'mail', 'company']))
+
+with open("/output/fake_data.json", "w") as f:
+    json.dump(profiles, f, indent=2)
+#+END_SRC

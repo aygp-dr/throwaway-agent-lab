@@ -1,0 +1,48 @@
+#+TITLE: Experiment 004: beautifulsoup-web-parsing
+#+DATE: 2025-11-23
+#+STATUS: In Progress
+
+* Goal
+Demonstrate robust HTML parsing without a "Web Scraper" tool.
+
+* Hypothesis
+Once HTML content is fetched (via the VFS interception or an allowed HTTP client), `BeautifulSoup` allows for far more intelligent extraction logic than a generic "HTML to Markdown" converter tool.
+
+* Method
+1.  Simulate "fetched" HTML content.
+2.  Use `BeautifulSoup` to extract specific data points (e.g., a table of data).
+
+* Code
+#+BEGIN_SRC python :tangle demo.py
+from bs4 import BeautifulSoup
+import json
+
+html_doc = """
+<html>
+<body>
+  <h1>Product List</h1>
+  <div class="product" data-id="101">
+    <span class="name">Widget A</span>
+    <span class="price">$10.99</span>
+  </div>
+  <div class="product" data-id="102">
+    <span class="name">Widget B</span>
+    <span class="price">$25.50</span>
+  </div>
+</body>
+</html>
+"""
+
+soup = BeautifulSoup(html_doc, 'html.parser')
+products = []
+
+for div in soup.find_all("div", class_="product"):
+    products.append({
+        "id": div["data-id"],
+        "name": div.find("span", class_="name").text,
+        "price": div.find("span", class_="price").text
+    })
+
+with open("/output/products.json", "w") as f:
+    json.dump(products, f, indent=2)
+#+END_SRC
