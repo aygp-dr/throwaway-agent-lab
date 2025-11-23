@@ -1,0 +1,51 @@
+#+TITLE: Throwaway Agent Lab
+#+AUTHOR: Aidan Pace
+#+OPTIONS: toc:nil num:nil
+
+[[https://img.shields.io/badge/license-MIT-blue.svg]]
+[[https://img.shields.io/badge/status-experimental-orange.svg]]
+[[https://img.shields.io/badge/python-3.11+-blue.svg]]
+[[https://img.shields.io/badge/code%20style-black-000000.svg]]
+[[https://img.shields.io/badge/runtime-pyodide-gold.svg]]
+
+* Overview
+
+*Throwaway Agent Lab* is an experimental research project exploring a new paradigm for AI agents: instead of relying on rigid, pre-defined tool definitions (like MCP), agents generate disposable, "throwaway" Python code to solve problems. This code executes in a secure, sandboxed WebAssembly environment (Pyodide).
+
+This approach allows agents to leverage the entire Python ecosystem on the fly, effectively treating "Code as Tools."
+
+* Core Concepts
+
+** 1. Throwaway Code
+Agents write single-use scripts to perform tasks. If the task is "analyze this CSV," the agent doesn't call a ~analyze_csv~ tool; it writes a Python script using ~pandas~ to do exactly what is needed.
+
+** 2. Sandboxed Execution
+All generated code runs inside *Pyodide* (CPython compiled to WebAssembly). This provides a strong security boundary, preventing the agent from accessing the host system, network, or sensitive data unless explicitly allowed via the Virtual File System.
+
+** 3. Virtual File System (VFS)
+The agent interacts with the outside world solely through files. API calls, database queries, and resource fetching are abstracted as file operations, allowing for rigorous interception and control.
+
+** 4. Durable Execution
+Complex workflows are managed through durable execution patterns (checkpointing state), allowing long-running tasks to pause, resume, and recover from failures without losing progress.
+
+* Project Structure
+
+- ~src/agent/~: Agent logic, planning, and execution loops.
+- ~src/sandbox/~: Pyodide runtime environment and VFS implementation.
+- ~src/tools/~: Minimal toolset (Describe, Help) to bootstrap the agent.
+- ~experiments/~: Research protocols and benchmark definitions.
+
+* Getting Started
+
+#+BEGIN_SRC bash
+# Install dependencies
+uv pip install -e ".[dev]"
+npm install
+
+# Run the sandbox tests
+npm test
+#+END_SRC
+
+* License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
