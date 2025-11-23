@@ -85,7 +85,7 @@ We follow a strict EDD policy. Before building major features, we validate them 
 2. **Run Tests**:
    #+BEGIN_SRC bash
    # Run Python unit tests
-   pytest
+   PYTHONPATH=src pytest
 
    # Run Pyodide integration tests
    npm test
