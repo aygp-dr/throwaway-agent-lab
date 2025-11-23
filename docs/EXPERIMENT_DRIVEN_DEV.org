@@ -1,0 +1,45 @@
+#+TITLE: Experiment Driven Development (EDD) Policy
+#+AUTHOR: Throwaway Agent Lab
+#+DATE: 2025-11-23
+
+* Overview
+
+This repository follows an *Experiment Driven Development (EDD)* methodology. This approach prioritizes rapid exploration and validation of hypotheses before committing to long-term architectural decisions.
+
+* Directory Structure
+
+All experiments reside in the ~experiments/~ directory and follow a strict naming convention:
+
+#+BEGIN_EXAMPLE
+experiments/
+  ├── 001-pyodide-startup-time/
+  │   ├── README.org       # Hypothesis, plan, results
+  │   ├── bench.py         # Code for the experiment
+  │   └── results.json     # Data
+  ├── 002-redis-persistence/
+  └── NNN-experiment-slug/
+#+END_EXAMPLE
+
+* The Workflow
+
+1. **Hypothesis**: Start with a question. "Can we run Pyodide in under 100ms?" or "Is Redis faster than Postgres for this durable state?"
+2. **Scaffold**: Run ~./experiments/new_experiment.sh <slug>~ to create the directory.
+3. **Hack**: Write throwaway code in that directory. No need for perfect tests or linting yet.
+4. **Measure**: Record the results in the experiment's README.
+5. **Decide**:
+   - *Success*: Refactor the core logic into ~src/~.
+   - *Failure*: Document why it failed and leave the directory for historical reference.
+
+* Naming Convention
+
+- **Prefix**: Three-digit number (incrementing).
+- **Slug**: Kebab-case description.
+- **Example**: ~003-vfs-interception-patterns~
+
+* Documentation Requirements
+
+Every experiment directory MUST contain a ~README.org~ (or ~.md~) with:
+- **Goal**: What are we trying to prove?
+- **Method**: How did we test it?
+- **Results**: Quantitative or qualitative outcome.
+- **Conclusion**: Next steps (adopt, discard, iterate).
